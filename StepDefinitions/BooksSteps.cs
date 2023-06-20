@@ -23,14 +23,20 @@ namespace BooksSpecflow.StepDefinitions
         }
 
         [Given(@"I select tab Books")]
+        [Then(@"I select tab Books")]
         public void GivenISelectTabBooks()
         {
-            _user.ClicksOn(Books.ACCEPT_PRIVACY_POLICY_BUTTON);
+            if (_user.CanSee(Books.ACCEPT_PRIVACY_POLICY_BUTTON))
+            {
+                _user.ClicksOn(Books.ACCEPT_PRIVACY_POLICY_BUTTON);
+            }
+
             _user.ClicksOn(Books.BOOKS_BUTTON);
         }
 
-        [Given(@"I select specific book '([^']*)' and choose '([^']*)'")]
-        [When(@"I select specific book '([^']*)' and choose '([^']*)'")]
+        [Given(@"I select specific book (.*) and choose '([^']*)'")]
+        [When(@"I select specific book (.*) and choose '([^']*)'")]
+        [Then(@"I select specific book (.*) and choose '([^']*)'")]
         public void WhenISelectSpecificBookAndChoose(string bookName, string option)
         {
             _user.ClicksOn(Books.TestBook(bookName, option));
@@ -83,11 +89,13 @@ namespace BooksSpecflow.StepDefinitions
         }
 
         [Given(@"I select create new book option")]
+        [When(@"I select create new book option")]
         public void GivenISelectCreateNewBookOption()
         {
             _user.ClicksOn(Books.CREATE_NEW_BOOK_BUTTON);
         }
 
+        [Given(@"I enter and create new book with (.*), (.*), (.*) and (.*)")]
         [When(@"I enter and create new book with (.*), (.*), (.*) and (.*)")]
         public void WhenIEnterAndCreateNewBookWithRestJohnM_ComedyAnd(string bookName, string author, string genre, string quantity)
         {
@@ -103,7 +111,8 @@ namespace BooksSpecflow.StepDefinitions
             _scenarioContext.Add("bookNameNewCreation", bookName);
         }
 
-        [Then(@"I see book '([^']*)' is present on books page after creation")]
+        [Given(@"I see book (.*) is present on books page after creation")]
+        [Then(@"I see book (.*) is present on books page after creation")]
         public void ThenISeeBookIsPresentOnBooksPageAfterCreation(string bookCreated)
         {
             var bookCreate = _user.Find(Books.CheckBook(bookCreated)).Text;

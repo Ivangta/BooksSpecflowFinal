@@ -76,8 +76,8 @@ namespace BooksSpecflow.Features
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Check details of existing book")]
         [NUnit.Framework.CategoryAttribute("ui")]
-        [NUnit.Framework.TestCaseAttribute("admin", "123456", null)]
-        public virtual void CheckDetailsOfExistingBook(string username, string password, string[] exampleTags)
+        [NUnit.Framework.TestCaseAttribute("admin", "123456", "BLUE", null)]
+        public virtual void CheckDetailsOfExistingBook(string username, string password, string name, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "ui"};
@@ -89,6 +89,7 @@ namespace BooksSpecflow.Features
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("username", username);
             argumentsOfScenario.Add("password", password);
+            argumentsOfScenario.Add("name", name);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Check details of existing book", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 5
 this.ScenarioInitialize(scenarioInfo);
@@ -123,7 +124,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.And("I select tab Books", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 10
- testRunner.When("I select specific book \'BLUE\' and choose \'Details\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I select specific book {0} and choose \'Details\'", name), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 11
  testRunner.Then("I see details book element \'BLUE\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -135,8 +136,8 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Delete existing book")]
         [NUnit.Framework.CategoryAttribute("ui")]
-        [NUnit.Framework.TestCaseAttribute("admin", "123456", null)]
-        public virtual void DeleteExistingBook(string username, string password, string[] exampleTags)
+        [NUnit.Framework.TestCaseAttribute("admin", "123456", "Marry", null)]
+        public virtual void DeleteExistingBook(string username, string password, string name, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "ui"};
@@ -148,6 +149,7 @@ this.ScenarioInitialize(scenarioInfo);
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("username", username);
             argumentsOfScenario.Add("password", password);
+            argumentsOfScenario.Add("name", name);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete existing book", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 18
 this.ScenarioInitialize(scenarioInfo);
@@ -182,7 +184,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.And("I select tab Books", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 23
- testRunner.And("I select specific book \'Marry\' and choose \'Delete\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And(string.Format("I select specific book {0} and choose \'Delete\'", name), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 24
  testRunner.When("I select delete option", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -197,8 +199,8 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Edit existing book")]
         [NUnit.Framework.CategoryAttribute("ui")]
-        [NUnit.Framework.TestCaseAttribute("admin", "123456", null)]
-        public virtual void EditExistingBook(string username, string password, string[] exampleTags)
+        [NUnit.Framework.TestCaseAttribute("admin", "123456", "bugXPName", null)]
+        public virtual void EditExistingBook(string username, string password, string name, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "ui"};
@@ -210,6 +212,7 @@ this.ScenarioInitialize(scenarioInfo);
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("username", username);
             argumentsOfScenario.Add("password", password);
+            argumentsOfScenario.Add("name", name);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Edit existing book", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 32
 this.ScenarioInitialize(scenarioInfo);
@@ -244,7 +247,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.And("I select tab Books", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 37
- testRunner.And("I select specific book \'bugXPName\' and choose \'Edit\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And(string.Format("I select specific book {0} and choose \'Edit\'", name), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 38
  testRunner.When("I edit book to name \'Bingo123!\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -316,7 +319,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.When(string.Format("I enter and create new book with {0}, {1}, {2} and {3}", name, author, genre, quantity), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 53
- testRunner.Then("I see book \'Rest123\' is present on books page after creation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then(string.Format("I see book {0} is present on books page after creation", name), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

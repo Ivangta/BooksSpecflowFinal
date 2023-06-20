@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace BooksSpecflow.Utils
@@ -16,6 +17,11 @@ namespace BooksSpecflow.Utils
             var randomString = new string(Enumerable.Repeat(chars, length)
                                                     .Select(s => s[random.Next(s.Length)]).ToArray());
             return randomString;
+        }
+
+        public static string RemoveNonNumericValuesUsingRegex(string source)
+        {
+            return Regex.Replace(source, "[^\\d.]", string.Empty);
         }
     }
 }

@@ -13,5 +13,10 @@ namespace BooksSpecflow.UI_Components
         {
             return By.XPath($"//dd[contains(text(),'{bookElementName}')]");
         }
+
+        public static By Elements()
+        {
+            return By.XPath("//dl[@class='dl-horizontal']");
+        }
     }
 }
