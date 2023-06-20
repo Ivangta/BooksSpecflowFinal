@@ -15,14 +15,14 @@ namespace BooksSpecflow.UI_Components
 
         public static readonly By CREATE_NEW_BOOK_BUTTON = By.XPath("//a[.='Create New']");
 
-        public static By TestUser(string element, string action)
+        public static By TestBook(string element, string action)
         {
             return By.XPath($"//td[contains(text(),'{element}')]/ancestor::tr//a[.='{action}']");
         }
 
-        public static By NewUser(string newBookName)
+        public static By CheckBook(string bookName)
         {
-            return By.XPath($"//td[contains(text(),'{newBookName}')]");
+            return By.XPath($"//td[contains(text(),'{bookName}')]");
         }
     }
 }

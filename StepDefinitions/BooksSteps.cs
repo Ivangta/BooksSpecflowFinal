@@ -29,10 +29,11 @@ namespace BooksSpecflow.StepDefinitions
             _user.ClicksOn(Books.BOOKS_BUTTON);
         }
 
+        [Given(@"I select specific book '([^']*)' and choose '([^']*)'")]
         [When(@"I select specific book '([^']*)' and choose '([^']*)'")]
         public void WhenISelectSpecificBookAndChoose(string bookName, string option)
         {
-            _user.ClicksOn(Books.TestUser(bookName, option));
+            _user.ClicksOn(Books.TestBook(bookName, option));
 
             _scenarioContext.Add("bookName", bookName);
         }
@@ -45,5 +46,20 @@ namespace BooksSpecflow.StepDefinitions
 
             Assert.AreEqual(bookElementText, bookNameBooksPage, "Name of book is incorrect!");
         }
+
+        [When(@"I select delete option")]
+        public void WhenISelectDeleteOption()
+        {
+            _user.ClicksOn(BooksDeleteForm.DELETE_BUTTON);
+        }
+
+        [Then(@"I see book '([^']*)' is not present on books page")]
+        public void ThenISeeBookIsNotPresentOnBooksPage(string bookName)
+        {
+            bool isBookPresent = _user.CanSee(Books.CheckBook(bookName));
+
+            Assert.IsFalse(isBookPresent, "Book is not deleted!");
+        }
+
     }
 }

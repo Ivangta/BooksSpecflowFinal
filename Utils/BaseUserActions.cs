@@ -103,5 +103,17 @@ namespace BooksSpecflow.Utils
                 return false;
             }
         }
+
+        internal bool CanSee(By dropdownElementLocator)
+        {
+            try
+            {
+                return Find(dropdownElementLocator).Displayed;
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
+        }
     }
 }
