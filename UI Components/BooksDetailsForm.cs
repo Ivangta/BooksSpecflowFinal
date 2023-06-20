@@ -9,7 +9,7 @@ namespace BooksSpecflow.UI_Components
 {
     class BooksDetailsForm
     {
-        public static By NewUser(string bookElementName)
+        public static By NewBook(string bookElementName)
         {
             return By.XPath($"//dd[contains(text(),'{bookElementName}')]");
         }

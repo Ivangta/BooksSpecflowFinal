@@ -25,7 +25,7 @@ Examples:
 	| username | password | 
 	| admin    | 123456   |
 
-	@ui
+@ui
 Scenario: Edit existing user
 	Given Homepage is open
 	And I log in <username> and <password>
@@ -37,7 +37,7 @@ Examples:
 	| username | password | 
 	| admin    | 123456   |
 
-		@ui
+@ui
 Scenario: Create new user
 	Given Homepage is open
 	And I log in <username> and <password>

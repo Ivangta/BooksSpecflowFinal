@@ -41,7 +41,7 @@ namespace BooksSpecflow.StepDefinitions
         [Then(@"I see details book element '([^']*)'")]
         public void ThenISeeDetailsBookElement(string bookElementName)
         {
-            var bookElementText = _user.Find(BooksDetailsForm.NewUser(bookElementName)).Text;
+            var bookElementText = _user.Find(BooksDetailsForm.NewBook(bookElementName)).Text;
             var bookNameBooksPage = _scenarioContext["bookName"].ToString();
 
             Assert.AreEqual(bookElementText, bookNameBooksPage, "Name of book is incorrect!");
@@ -60,6 +60,28 @@ namespace BooksSpecflow.StepDefinitions
 
             Assert.IsFalse(isBookPresent, "Book is not deleted!");
         }
+
+        [When(@"I edit book to name '([^']*)'")]
+        public void WhenIEditBookToName(string newBookName)
+        {
+            _user.WaitsUntilVisible(BooksCreateForm.NAME_BOX);
+            _user.WaitsUntilVisible(BooksCreateForm.EDIT_BOOK_BUTTON);
+
+            _user.TypesInto(BooksCreateForm.NAME_BOX, newBookName);
+            _user.ClicksOn(BooksCreateForm.EDIT_BOOK_BUTTON);
+
+            _scenarioContext.Add("bookNameNew", newBookName);
+        }
+
+        [Then(@"I see book '([^']*)' is present on books page")]
+        public void ThenISeeBookIsPresentOnBooksPage(string bookEdited)
+        {
+            var bookEdit= _user.Find(Books.CheckBook(bookEdited)).Text;
+            var bookNameBooksPage = _scenarioContext["bookNameNew"].ToString();
+
+            Assert.AreEqual(bookEdit, bookNameBooksPage, "Name of book is not edited!");
+        }
+
 
     }
 }
