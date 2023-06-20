@@ -123,7 +123,9 @@ namespace BooksSpecflow.StepDefinitions
         [Given(@"I see error message for quantity")]
         public void GivenISeeErrorMessageForQuantity()
         {
-            _user.ReadsTextFrom(BooksEditCreateForm.ERROR_QUANTITY_MESSAGE);
+            bool messageDisplayed = _user.Find(BooksEditCreateForm.ERROR_QUANTITY_MESSAGE).Displayed;
+
+            Assert.IsTrue(messageDisplayed, "Error message for quantity is not displayed!");
         }
 
         [When(@"I enter and create new book with incorrect details")]
