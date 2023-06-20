@@ -48,5 +48,11 @@ namespace BooksSpecflow.StepDefinitions
             Assert.AreEqual(currentPageUrl, "https://qa-task.immedis.com/Users", "Page Url is incorrect!");
         }
 
+        [Then(@"Alert message pops-up")]
+        public void ThenAlertMessagePops_Up()
+        {
+            var statement = _user.CanSeeAlert();
+            Assert.AreEqual(true, statement, "No error message present!");
+        }
     }
 }

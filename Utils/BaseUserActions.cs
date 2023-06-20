@@ -83,5 +83,20 @@ namespace BooksSpecflow.Utils
         {
             return _currentPage.FindElement(elementLocator);
         }
+
+        internal bool CanSeeAlert()
+        {
+            try
+            {
+                IAlert alrert = _currentPage.SwitchTo().Alert();
+                alrert.Accept();
+
+                return true;
+            }
+            catch (NoAlertPresentException)
+            {
+                return false;
+            }
+        }
     }
 }
