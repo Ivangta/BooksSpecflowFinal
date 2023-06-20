@@ -29,6 +29,7 @@ namespace BooksSpecflow.StepDefinitions
             _user.OpensPage("https://qa-task.immedis.com/");
         }
 
+        [Given(@"I log in (.*) and (.*)")]
         [When(@"I log in (.*) and (.*)")]
         public void WhenILogInAdminAnd(string username, string password)
         {
@@ -41,6 +42,7 @@ namespace BooksSpecflow.StepDefinitions
             _user.ClicksOn(Homepage.SIGN_IN_BUTTON);
         }
 
+        [Given(@"I am successfully logged in")]
         [Then(@"I am successfully logged in")]
         public void ThenIAmSuccessfullyLoggedIn()
         {

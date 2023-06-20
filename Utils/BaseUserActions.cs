@@ -84,6 +84,11 @@ namespace BooksSpecflow.Utils
             return _currentPage.FindElement(elementLocator);
         }
 
+        internal protected IList<IWebElement> FindElements(By elementLocator)
+        {
+            return _currentPage.FindElements(elementLocator);
+        }
+
         internal bool CanSeeAlert()
         {
             try
