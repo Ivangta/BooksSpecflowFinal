@@ -112,5 +112,45 @@ namespace BooksSpecflow.StepDefinitions
             Assert.AreEqual(bookCreate, bookNameBooksPage, "Book is not created!");
         }
 
+        [Given(@"I click create new book button")]
+        public void GivenIClickCreateNewBookButton()
+        {
+            _user.WaitsUntilVisible(BooksEditCreateForm.CREATE_BOOK_BUTTON);
+
+            _user.ClicksOn(BooksEditCreateForm.CREATE_BOOK_BUTTON);
+        }
+
+        [Given(@"I see error message for quantity")]
+        public void GivenISeeErrorMessageForQuantity()
+        {
+            _user.ReadsTextFrom(BooksEditCreateForm.ERROR_QUANTITY_MESSAGE);
+        }
+
+        [When(@"I enter and create new book with incorrect details")]
+        public void WhenIEnterAndCreateNewBookWithIncorrectDetails()
+        {
+            _user.WaitsUntilVisible(BooksEditCreateForm.NAME_BOX);
+            _user.WaitsUntilVisible(BooksEditCreateForm.CREATE_BOOK_BUTTON);
+
+            var nameIncorrectLength = Helpers.GenerateRandomAlphanumericString(251);
+            _user.TypesInto(BooksEditCreateForm.NAME_BOX, nameIncorrectLength);
+
+            var authorIncorrectLength = Helpers.GenerateRandomAlphanumericString(101);
+            _user.TypesInto(BooksEditCreateForm.AUTHOR_BOX, authorIncorrectLength);
+
+            var genreIncorrectLength = Helpers.GenerateRandomAlphanumericString(51);
+            _user.TypesInto(BooksEditCreateForm.GENRE_BOX, genreIncorrectLength);
+
+            _user.TypesInto(BooksEditCreateForm.QUANTITY_BOX, "2");
+            _user.ClicksOn(BooksEditCreateForm.CREATE_BOOK_BUTTON);
+        }
+
+        [Then(@"I validate correct error is shown")]
+        public void ThenIValidateCorrectErrorIsShown()
+        {
+            var statement = _user.CanSeeAlert();
+            Assert.AreEqual(true, statement, "No error message present!");
+        }
+
     }
 }

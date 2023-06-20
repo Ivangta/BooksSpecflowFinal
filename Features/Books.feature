@@ -55,3 +55,19 @@ Scenario: Create new book
 Examples: 
 	| username | password | name    | author  | genre  | quantity |
 	| admin    | 123456   | Rest123 | John M. | Comedy | 2        |
+
+@ui
+Scenario: Verify correct error is returned with incorrect book creation details
+	Given Homepage is open
+	And I log in <username> and <password>
+	And I am successfully logged in
+	And I select tab Books
+	And I select create new book option
+	And I click create new book button
+	And I see error message for quantity
+	When I enter and create new book with incorrect details
+	Then I validate correct error is shown
+
+Examples: 
+	| username | password | name    | author  | genre  | quantity |
+	| admin    | 123456   | Rest123 | John M. | Comedy | 2        |

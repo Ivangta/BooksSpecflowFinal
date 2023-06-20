@@ -21,5 +21,7 @@ namespace BooksSpecflow.UI_Components
         public static readonly By CREATE_BOOK_BUTTON = By.XPath("//input[@value='Create']");
 
         public static readonly By EDIT_BOOK_BUTTON = By.XPath("//input[@value='Save']");
+
+        public static readonly By ERROR_QUANTITY_MESSAGE = By.Id("Quontity-error");
     }
 }
