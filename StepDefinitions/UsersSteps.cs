@@ -21,16 +21,24 @@ namespace BooksSpecflow.StepDefinitions
             _scenarioContext = scenarioContext;
         }
 
-        [When(@"I select specific user '([^']*)'")]
-        public void WhenISelectSpecificUser(string ergergb)
+        [When(@"I select specific user '([^']*)' and choose details")]
+        public void WhenISelectSpecificUserAndChooseDetails(string userName)
         {
-            IList<IWebElement> elements = _user.FindElements(Users.TEST_USER);
+            IList<IWebElement> elements = _user.FindElements(Users.TestUser(userName));
             var firstResult = elements.First();
 
             var details = firstResult.FindElement(Users.DETAILS_ELEMENT);
             details.Click();
         }
 
+        [Then(@"I see details element")]
+        public void ThenISeeDetailsElement()
+        {
+            IList<IWebElement> elements = _user.FindElements(Users.DETAILS_ELEMENT_NAME);
+            var result = elements.First();
+
+            var text = result.Text;
+        }
 
     }
 }
