@@ -55,6 +55,34 @@ namespace BooksSpecflow.StepDefinitions
             _user.Find(EditUserForm.EDIT_TEXTBOX);
         }
 
+        [Given(@"I select on create new user option")]
+        public void GivenISelectOnCreateNewUserOption()
+        {
+            _user.ClicksOn(Users.CREATE_NEW_USER_BUTTON);
+        }
+
+        [When(@"I enter and create new user '([^']*)'")]
+        public void WhenIEnterAndCreateNewUser(string newUser)
+        {
+            _user.WaitsUntilVisible(UserCreateForm.NAME_BOX);
+            _user.WaitsUntilVisible(UserCreateForm.CREATE_USER_BUTTON);
+
+            _user.TypesInto(UserCreateForm.NAME_BOX, newUser);
+            _user.ClicksOn(UserCreateForm.CREATE_USER_BUTTON);
+
+            _scenarioContext.Add("usernameNew", newUser);
+        }
+
+        [Then(@"I see new user '([^']*)' on users page")]
+        public void ThenISeeNewUserOnUsersPage(string newUser)
+        {
+            var userOnUsersPage = _user.Find(Users.NewUser(newUser)).Text;
+            var usernameUserCreationPage = _scenarioContext["usernameNew"].ToString();
+
+            Assert.AreEqual(userOnUsersPage, usernameUserCreationPage, "New user is incorrect!");
+
+        }
+
 
 
     }
