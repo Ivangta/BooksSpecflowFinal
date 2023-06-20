@@ -1,4 +1,5 @@
 ﻿using BasicSelenium.UIComponents;
+using BooksSpecflow.UI_Components;
 using BooksSpecflow.Utils;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -41,6 +42,20 @@ namespace BooksSpecflow.StepDefinitions
 
             Assert.AreEqual(nameOfUserDetailsPage, usernameUsersPage, "User details are incorrect!");
         }
+
+        [Then(@"I select delete option")]
+        public void ThenISelectDeleteOption()
+        {
+            _user.Find(DeleteUserForm.DELETE_BUTTON);
+        }
+
+        [Then(@"I edit user")]
+        public void ThenIEditUser()
+        {
+            _user.Find(EditUserForm.EDIT_TEXTBOX);
+        }
+
+
 
     }
 }

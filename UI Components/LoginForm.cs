@@ -2,7 +2,7 @@
 
 namespace BasicSelenium.UIComponents
 {
-    internal class LoginForm
+    class LoginForm
     {
         public static readonly By USERNAME_FIELD = By.Name("username");
 
