@@ -80,10 +80,6 @@ namespace BooksSpecflow.StepDefinitions
             var usernameUserCreationPage = _scenarioContext["usernameNew"].ToString();
 
             Assert.AreEqual(userOnUsersPage, usernameUserCreationPage, "New user is incorrect!");
-
         }
-
-
-
     }
 }

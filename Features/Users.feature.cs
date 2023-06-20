@@ -291,7 +291,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.And("I select on create new user option", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 46
- testRunner.When("I enter and create new user \'Bay123456!\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I enter and create new user \'Bay123456789!\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 47
  testRunner.Then("I see new user \'Bay123456!\' on users page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");

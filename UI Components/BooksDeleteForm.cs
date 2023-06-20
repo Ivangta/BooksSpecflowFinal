@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace BooksSpecflow.UI_Components
 {
-    class UserCreateForm
+    class BooksDeleteForm
     {
-        public static readonly By NAME_BOX = By.Id("Name");
-
-        public static readonly By CREATE_USER_BUTTON = By.XPath("//input[@value='Create']");
+        public static readonly By DELETE_BUTTON = By.XPath("//input[@value='Delete']");
     }
 }

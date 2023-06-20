@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace BooksSpecflow.UI_Components
 {
-    class UserCreateForm
+    class BooksDetailsForm
     {
-        public static readonly By NAME_BOX = By.Id("Name");
-
-        public static readonly By CREATE_USER_BUTTON = By.XPath("//input[@value='Create']");
+        public static By NewUser(string bookElementName)
+        {
+            return By.XPath($"//dd[contains(text(),'{bookElementName}')]");
+        }
     }
 }

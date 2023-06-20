@@ -9,9 +9,11 @@ namespace BooksSpecflow.UI_Components
 {
     class Books
     {
-        public static readonly By BOOKS_BUTTON = By.Id("//a[.='Books']");
+        public static readonly By ACCEPT_PRIVACY_POLICY_BUTTON = By.XPath("//button[.='Accept']");
 
-        public static readonly By CREATE_NEW_BOOK_BUTTON = By.Id("//a[.='Create New']");
+        public static readonly By BOOKS_BUTTON = By.XPath("//a[.='Books']");
+
+        public static readonly By CREATE_NEW_BOOK_BUTTON = By.XPath("//a[.='Create New']");
 
         public static By TestUser(string element, string action)
         {
