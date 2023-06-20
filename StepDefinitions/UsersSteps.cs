@@ -1,5 +1,6 @@
 ﻿using BasicSelenium.UIComponents;
 using BooksSpecflow.Utils;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
@@ -25,15 +26,20 @@ namespace BooksSpecflow.StepDefinitions
         public void WhenISelectSpecificUserAndChooseDetails(string userName, string option)
         {
             _user.ClicksOn(Users.TestUser(userName, option));
+
+            _scenarioContext.Add("username", userName);
         }
 
         [Then(@"I see details element")]
         public void ThenISeeDetailsElement()
         {
             IList<IWebElement> elements = _user.FindElements(Users.DETAILS_ELEMENT_NAME);
-            var result = elements.First();
+            var resultUser = elements.First();
 
-            var text = result.Text;
+            var nameOfUserDetailsPage = resultUser.Text;
+            var usernameUsersPage = _scenarioContext["username"].ToString();
+
+            Assert.AreEqual(nameOfUserDetailsPage, usernameUsersPage, "User details are incorrect!");
         }
 
     }
