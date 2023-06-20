@@ -1,7 +1,11 @@
-﻿using BooksSpecflow.Utils;
+﻿using BasicSelenium.UIComponents;
+using BooksSpecflow.Utils;
+using NUnit.Framework;
+using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,16 +29,23 @@ namespace BooksSpecflow.StepDefinitions
             _user.OpensPage("https://qa-task.immedis.com/");
         }
 
-        [When(@"I log in admin and (.*)")]
-        public void WhenILogInAdminAnd(int p0)
+        [When(@"I log in (.*) and (.*)")]
+        public void WhenILogInAdminAnd(string username, string password)
         {
-            throw new PendingStepException();
+            _user.WaitsUntilVisible(Homepage.SIGN_IN_BUTTON);
+            _user.WaitsUntilVisible(Homepage.SIGN_UP_BUTTON);
+
+            _user.TypesInto(LoginForm.USERNAME_FIELD, username);
+            _user.TypesInto(LoginForm.PASSWORD_FIELD, password);
+
+            _user.ClicksOn(Homepage.SIGN_IN_BUTTON);
         }
 
         [Then(@"I am successfully logged in")]
         public void ThenIAmSuccessfullyLoggedIn()
         {
-            throw new PendingStepException();
+            var currentPageUrl = _user.ExtractCurrentPageUrl();
+            Assert.AreEqual(currentPageUrl, "https://qa-task.immedis.com/Users", "Page Url is incorrect!");
         }
 
     }

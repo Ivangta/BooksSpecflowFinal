@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using SeleniumExtras.WaitHelpers;
+using NUnit.Framework;
 
 namespace BooksSpecflow.Utils
 {
@@ -16,11 +17,6 @@ namespace BooksSpecflow.Utils
         protected IWebDriver _currentPage;
         private WebDriverWait _wait;
 
-        public BaseUserActions()
-        {
-            _wait = new WebDriverWait(_currentPage, TimeSpan.FromSeconds(2));
-        }
-
         internal void OpensPage(string pageName)
         {
             _currentPage = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
@@ -28,6 +24,18 @@ namespace BooksSpecflow.Utils
             _wait = new WebDriverWait(_currentPage, TimeSpan.FromSeconds(2));
             _currentPage.Navigate().GoToUrl(pageName);
             _wait = new WebDriverWait(_currentPage, TimeSpan.FromSeconds(2));
+        }
+
+        internal string ExtractCurrentPageUrl()
+        {
+            var url = _currentPage.Url;
+            return url;
+        }
+
+        internal IWebDriver ExtractDriver()
+        {
+            var driver = _currentPage;
+            return driver;
         }
 
         internal IWebElement WaitsUntilClickable(By elementLocator)
@@ -65,5 +73,15 @@ namespace BooksSpecflow.Utils
             return WaitsUntilVisible(elementLocator).Text.Trim();
         }
 
+        internal void TypesInto(By elementLocator, string text)
+        {
+            WaitsUntilClickable(elementLocator).Clear();
+            Find(elementLocator).SendKeys(text);
+        }
+
+        internal protected IWebElement Find(By elementLocator)
+        {
+            return _currentPage.FindElement(elementLocator);
+        }
     }
 }
