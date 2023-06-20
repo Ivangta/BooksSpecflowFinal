@@ -64,24 +64,53 @@ namespace BooksSpecflow.StepDefinitions
         [When(@"I edit book to name '([^']*)'")]
         public void WhenIEditBookToName(string newBookName)
         {
-            _user.WaitsUntilVisible(BooksCreateForm.NAME_BOX);
-            _user.WaitsUntilVisible(BooksCreateForm.EDIT_BOOK_BUTTON);
+            _user.WaitsUntilVisible(BooksEditCreateForm.NAME_BOX);
+            _user.WaitsUntilVisible(BooksEditCreateForm.EDIT_BOOK_BUTTON);
 
-            _user.TypesInto(BooksCreateForm.NAME_BOX, newBookName);
-            _user.ClicksOn(BooksCreateForm.EDIT_BOOK_BUTTON);
+            _user.TypesInto(BooksEditCreateForm.NAME_BOX, newBookName);
+            _user.ClicksOn(BooksEditCreateForm.EDIT_BOOK_BUTTON);
 
-            _scenarioContext.Add("bookNameNew", newBookName);
+            _scenarioContext.Add("bookNameNewEditing", newBookName);
         }
 
-        [Then(@"I see book '([^']*)' is present on books page")]
-        public void ThenISeeBookIsPresentOnBooksPage(string bookEdited)
+        [Then(@"I see book '([^']*)' is present on books page after editing")]
+        public void ThenISeeBookIsPresentOnBooksPageAfterEditing(string bookEdited)
         {
             var bookEdit= _user.Find(Books.CheckBook(bookEdited)).Text;
-            var bookNameBooksPage = _scenarioContext["bookNameNew"].ToString();
+            var bookNameBooksPage = _scenarioContext["bookNameNewEditing"].ToString();
 
             Assert.AreEqual(bookEdit, bookNameBooksPage, "Name of book is not edited!");
         }
 
+        [Given(@"I select create new book option")]
+        public void GivenISelectCreateNewBookOption()
+        {
+            _user.ClicksOn(Books.CREATE_NEW_BOOK_BUTTON);
+        }
+
+        [When(@"I enter and create new book with (.*), (.*), (.*) and (.*)")]
+        public void WhenIEnterAndCreateNewBookWithRestJohnM_ComedyAnd(string bookName, string author, string genre, string quantity)
+        {
+            _user.WaitsUntilVisible(BooksEditCreateForm.NAME_BOX);
+            _user.WaitsUntilVisible(BooksEditCreateForm.CREATE_BOOK_BUTTON);
+
+            _user.TypesInto(BooksEditCreateForm.NAME_BOX, bookName);
+            _user.TypesInto(BooksEditCreateForm.AUTHOR_BOX, author);
+            _user.TypesInto(BooksEditCreateForm.GENRE_BOX, genre);
+            _user.TypesInto(BooksEditCreateForm.QUANTITY_BOX, quantity);
+            _user.ClicksOn(BooksEditCreateForm.CREATE_BOOK_BUTTON);
+
+            _scenarioContext.Add("bookNameNewCreation", bookName);
+        }
+
+        [Then(@"I see book '([^']*)' is present on books page after creation")]
+        public void ThenISeeBookIsPresentOnBooksPageAfterCreation(string bookCreated)
+        {
+            var bookCreate = _user.Find(Books.CheckBook(bookCreated)).Text;
+            var bookNameBooksPage = _scenarioContext["bookNameNewCreation"].ToString();
+
+            Assert.AreEqual(bookCreate, bookNameBooksPage, "Book is not created!");
+        }
 
     }
 }

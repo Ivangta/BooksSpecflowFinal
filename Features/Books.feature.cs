@@ -250,7 +250,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.When("I edit book to name \'Bingo123!\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 39
- testRunner.Then("I see book \'Bingo123!\' is present on books page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("I see book \'Bingo123!\' is present on books page after editing", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -259,8 +259,8 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Create new book")]
         [NUnit.Framework.CategoryAttribute("ui")]
-        [NUnit.Framework.TestCaseAttribute("admin", "123456", null)]
-        public virtual void CreateNewBook(string username, string password, string[] exampleTags)
+        [NUnit.Framework.TestCaseAttribute("admin", "123456", "Rest123", "John M.", "Comedy", "2", null)]
+        public virtual void CreateNewBook(string username, string password, string name, string author, string genre, string quantity, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "ui"};
@@ -272,6 +272,10 @@ this.ScenarioInitialize(scenarioInfo);
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("username", username);
             argumentsOfScenario.Add("password", password);
+            argumentsOfScenario.Add("name", name);
+            argumentsOfScenario.Add("author", author);
+            argumentsOfScenario.Add("genre", genre);
+            argumentsOfScenario.Add("quantity", quantity);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create new book", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 46
 this.ScenarioInitialize(scenarioInfo);
@@ -306,13 +310,13 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.And("I select tab Books", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 51
- testRunner.And("I select on create new user option", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I select create new book option", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 52
- testRunner.When("I enter and create new user \'Bay123456789!\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I enter and create new book with {0}, {1}, {2} and {3}", name, author, genre, quantity), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 53
- testRunner.Then("I see new user \'Bay123456!\' on users page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("I see book \'Rest123\' is present on books page after creation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

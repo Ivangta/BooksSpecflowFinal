@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace BooksSpecflow.UI_Components
 {
-    class BooksCreateForm
+    class BooksEditCreateForm
+  
     {
         public static readonly By NAME_BOX = By.Id("Name");
 

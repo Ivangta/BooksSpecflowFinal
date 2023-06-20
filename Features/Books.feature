@@ -36,7 +36,7 @@ Scenario: Edit existing book
 	And I select tab Books
 	And I select specific book 'bugXPName' and choose 'Edit'
 	When I edit book to name 'Bingo123!'
-	Then I see book 'Bingo123!' is present on books page
+	Then I see book 'Bingo123!' is present on books page after editing
 
 Examples: 
 	| username | password | 
@@ -48,10 +48,10 @@ Scenario: Create new book
 	And I log in <username> and <password>
 	And I am successfully logged in
 	And I select tab Books
-	And I select on create new user option
-	When I enter and create new user 'Bay123456789!'
-	Then I see new user 'Bay123456!' on users page
+	And I select create new book option
+	When I enter and create new book with <name>, <author>, <genre> and <quantity>
+	Then I see book 'Rest123' is present on books page after creation
 
 Examples: 
-	| username | password | 
-	| admin    | 123456   |
+	| username | password | name    | author  | genre  | quantity |
+	| admin    | 123456   | Rest123 | John M. | Comedy | 2        |
