@@ -120,7 +120,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.And("I am successfully logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 9
- testRunner.When("I select specific user \'ergergb\' and choose details", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I select specific user \'ergergb\' and choose \'Details\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 10
  testRunner.Then("I see details element", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
