@@ -8,7 +8,7 @@ Scenario: Check details of existing book
 	And I am successfully logged in
 	And I select tab Books
 	When I select specific book 'BLUE' and choose 'Details'
-	Then I see details book element 'SCIFICTION'
+	Then I see details book element 'BLUE'
 
 Examples: 
 	| username | password | 

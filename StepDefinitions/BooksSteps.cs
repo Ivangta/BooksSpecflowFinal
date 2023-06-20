@@ -1,6 +1,7 @@
 ﻿using BasicSelenium.UIComponents;
 using BooksSpecflow.UI_Components;
 using BooksSpecflow.Utils;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +32,7 @@ namespace BooksSpecflow.StepDefinitions
         [When(@"I select specific book '([^']*)' and choose '([^']*)'")]
         public void WhenISelectSpecificBookAndChoose(string bookName, string option)
         {
-            _user.ClicksOn(Users.TestUser(bookName, option));
+            _user.ClicksOn(Books.TestUser(bookName, option));
 
             _scenarioContext.Add("bookName", bookName);
         }
@@ -39,7 +40,10 @@ namespace BooksSpecflow.StepDefinitions
         [Then(@"I see details book element '([^']*)'")]
         public void ThenISeeDetailsBookElement(string bookElementName)
         {
-            throw new PendingStepException();
+            var bookElementText = _user.Find(BooksDetailsForm.NewUser(bookElementName)).Text;
+            var bookNameBooksPage = _scenarioContext["bookName"].ToString();
+
+            Assert.AreEqual(bookElementText, bookNameBooksPage, "Name of book is incorrect!");
         }
 
 
