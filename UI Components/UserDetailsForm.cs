@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace BooksSpecflow.UI_Components
 {
-    class EditUserForm
+    class UserDetailsForm
     {
-        public static readonly By EDIT_TEXTBOX = By.Id("EditBox");
+        public static readonly By DETAILS_ELEMENT_NAME = By.XPath("//dd");
     }
 }

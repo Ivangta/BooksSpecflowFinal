@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace BooksSpecflow.UI_Components
 {
-    class DeleteUserForm
+    class UserEditForm
     {
-        public static readonly By DELETE_BUTTON = By.Id("Delete");
+        public static readonly By EDIT_TEXTBOX = By.Id("EditBox");
     }
 }

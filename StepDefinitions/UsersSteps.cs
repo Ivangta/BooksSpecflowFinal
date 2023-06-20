@@ -34,7 +34,7 @@ namespace BooksSpecflow.StepDefinitions
         [Then(@"I see details element")]
         public void ThenISeeDetailsElement()
         {
-            IList<IWebElement> elements = _user.FindElements(Users.DETAILS_ELEMENT_NAME);
+            IList<IWebElement> elements = _user.FindElements(UserDetailsForm.DETAILS_ELEMENT_NAME);
             var resultUser = elements.First();
 
             var nameOfUserDetailsPage = resultUser.Text;
@@ -46,13 +46,13 @@ namespace BooksSpecflow.StepDefinitions
         [Then(@"I select delete option")]
         public void ThenISelectDeleteOption()
         {
-            _user.Find(DeleteUserForm.DELETE_BUTTON);
+            _user.Find(UserDeleteForm.DELETE_BUTTON);
         }
 
         [Then(@"I edit user")]
         public void ThenIEditUser()
         {
-            _user.Find(EditUserForm.EDIT_TEXTBOX);
+            _user.Find(UserEditForm.EDIT_TEXTBOX);
         }
 
         [Given(@"I select on create new user option")]

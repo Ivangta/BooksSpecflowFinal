@@ -14,8 +14,6 @@ namespace BasicSelenium.UIComponents
 
         public static readonly By DETAILS_ELEMENT = By.XPath("//a[contains(text(),'Details')]");
 
-        public static readonly By DETAILS_ELEMENT_NAME = By.XPath("//dd");
-
         public static By TestUser(string element, string action)
         {
             return By.XPath($"//td[contains(text(),'{element}')]/ancestor::tr//a[.='{action}']");
