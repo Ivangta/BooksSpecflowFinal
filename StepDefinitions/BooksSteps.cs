@@ -45,9 +45,5 @@ namespace BooksSpecflow.StepDefinitions
 
             Assert.AreEqual(bookElementText, bookNameBooksPage, "Name of book is incorrect!");
         }
-
-
-
-
     }
 }
