@@ -53,7 +53,8 @@ namespace BooksSpecflow.StepDefinitions
             Assert.AreEqual(bookElementText, bookNameBooksPage, "Name of book is incorrect!");
         }
 
-        [When(@"I select delete option")]
+        [When(@"I select delete book option")]
+        [Then(@"I select delete book option")]
         public void WhenISelectDeleteOption()
         {
             _user.ClicksOn(BooksDeleteForm.DELETE_BUTTON);

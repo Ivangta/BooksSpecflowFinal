@@ -187,7 +187,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.And(string.Format("I select specific book {0} and choose \'Delete\'", name), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 24
- testRunner.When("I select delete option", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I select delete book option", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 25
  testRunner.Then("I see book \'Marry\' is not present on books page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");

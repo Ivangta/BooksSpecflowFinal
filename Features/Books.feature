@@ -21,7 +21,7 @@ Scenario: Delete existing book
 	And I am successfully logged in
 	And I select tab Books
 	And I select specific book <name> and choose 'Delete'
-	When I select delete option
+	When I select delete book option
 	Then I see book 'Marry' is not present on books page
 
 Examples: 

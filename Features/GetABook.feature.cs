@@ -74,10 +74,10 @@ namespace BooksSpecflow.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Get a new book and verify that the quantity decreased")]
+        [NUnit.Framework.DescriptionAttribute("Get a new book and verify that the quantity of books decreased")]
         [NUnit.Framework.CategoryAttribute("ui")]
         [NUnit.Framework.TestCaseAttribute("admin", "123456", "RestTerminatorsddr", "John Msqt.", "Comedy", "2", "9876", "John Msqt.", null)]
-        public virtual void GetANewBookAndVerifyThatTheQuantityDecreased(string username, string password, string name, string author, string genre, string quantity, string userId, string bookId, string[] exampleTags)
+        public virtual void GetANewBookAndVerifyThatTheQuantityOfBooksDecreased(string username, string password, string name, string author, string genre, string quantity, string userId, string bookId, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "ui"};
@@ -95,7 +95,7 @@ namespace BooksSpecflow.Features
             argumentsOfScenario.Add("quantity", quantity);
             argumentsOfScenario.Add("userId", userId);
             argumentsOfScenario.Add("bookId", bookId);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get a new book and verify that the quantity decreased", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get a new book and verify that the quantity of books decreased", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 5
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -154,6 +154,92 @@ this.ScenarioInitialize(scenarioInfo);
 #line hidden
 #line 18
  testRunner.And("I see quantity of book is \'1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Remove a new book and verify that the quantity of books increased")]
+        [NUnit.Framework.CategoryAttribute("ui")]
+        [NUnit.Framework.TestCaseAttribute("admin", "123456", "RestTerminatorsddrtw", "John Msqtqw.", "Comedy", "2", "9876", "John Msqtqw.", null)]
+        public virtual void RemoveANewBookAndVerifyThatTheQuantityOfBooksIncreased(string username, string password, string name, string author, string genre, string quantity, string userId, string bookId, string[] exampleTags)
+        {
+            string[] @__tags = new string[] {
+                    "ui"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("username", username);
+            argumentsOfScenario.Add("password", password);
+            argumentsOfScenario.Add("name", name);
+            argumentsOfScenario.Add("author", author);
+            argumentsOfScenario.Add("genre", genre);
+            argumentsOfScenario.Add("quantity", quantity);
+            argumentsOfScenario.Add("userId", userId);
+            argumentsOfScenario.Add("bookId", bookId);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Remove a new book and verify that the quantity of books increased", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 25
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 26
+ testRunner.Given("Homepage is open", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 27
+ testRunner.And(string.Format("I log in {0} and {1}", username, password), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 28
+ testRunner.And("I am successfully logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 29
+ testRunner.And("I select tab Books", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 30
+ testRunner.And("I select create new book option", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 31
+ testRunner.And(string.Format("I enter and create new book with {0}, {1}, {2} and {3}", name, author, genre, quantity), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 32
+ testRunner.And(string.Format("I see book {0} is present on books page after creation", name), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 33
+ testRunner.And("I select tab GetABook", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 34
+ testRunner.When(string.Format("I select specific book {0} and choose \'Delete\'", author), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 35
+ testRunner.Then("I select delete book option", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 36
+ testRunner.And("I select tab Books", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 37
+ testRunner.And(string.Format("I select specific book {0} and choose \'Details\'", name), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 38
+ testRunner.And("I see quantity of book is \'3\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
