@@ -15,18 +15,21 @@ namespace BooksSpecflow.StepDefinitions
         private const string BASE_URL = "http://qa-task.immedis.com/";
         private readonly CreateUserRequest createUserReq;
         private readonly CreateBookRequest createBookReq;
+        private readonly CreateABookRequest takeBookReq;
         private GetUserResponse getUserResponse;
         private GetBookResponse getBookResponse;
         private CreateUserResponse[] createUserResponse;
         private CreateBookResponse[] createBookResponse;
+        private CreateABookResponse[] takeABookResponse;
         private readonly ScenarioContext _scenarioContext;
         private string _userId;
         private string _bookId;
 
-        public RestSteps(CreateUserRequest createUserReq, CreateBookRequest createBookReq, ScenarioContext scenarioContext)
+        public RestSteps(CreateUserRequest createUserReq, CreateBookRequest createBookReq, CreateABookRequest creatABookReq, ScenarioContext scenarioContext)
         {
             this.createUserReq = createUserReq;
             this.createBookReq = createBookReq;
+            this.takeBookReq = creatABookReq;
             _scenarioContext = scenarioContext;
         }
 
@@ -70,8 +73,8 @@ namespace BooksSpecflow.StepDefinitions
             throw new PendingStepException();
         }
 
-        [Then(@"validate user ""([^""]*)"" is created")]
-        public void ThenValidateUserIsCreated(string user)
+        [Then(@"I validate user ""([^""]*)"" is created")]
+        public void ThenIValidateUserIsCreated(string user)
         {
             var contentUser = _scenarioContext["createUserResponse"].ToString();
             var userName = contentUser.Contains(user);
@@ -94,8 +97,8 @@ namespace BooksSpecflow.StepDefinitions
             _scenarioContext.Add("getUserResponseName", getUserResponse.name);
         }
 
-        [Then(@"validate '([^']*)' user is received")]
-        public void ThenValidateUserIsReceived(string userId)
+        [Then(@"I validate '([^']*)' user is received")]
+        public void ThenIValidateUserIsReceived(string userId)
         {
             var contentUser = _scenarioContext["getUserResponseId"].ToString();
             var userIdFromResponse = contentUser;
@@ -116,6 +119,13 @@ namespace BooksSpecflow.StepDefinitions
             createBookReq.name = bookName;
         }
 
+        [Given(@"I input book to take (.*), (.*)")]
+        public void GivenIInputBookToTakeUserId(int userId, int bookId)
+        {
+            takeBookReq.userid = userId;
+            takeBookReq.bookid = bookId;
+        }
+
         [Given(@"I input book (.*), (.*), (.*), (.*)")]
         public void GivenIInputBookOceanJohnS_Action(string name, string author, string genre, int quantity)
         {
@@ -125,7 +135,6 @@ namespace BooksSpecflow.StepDefinitions
             createBookReq.quontity = quantity;
         }
 
-
         [When(@"I send create book request")]
         public void WhenISendCreateBookRequest()
         {
@@ -134,8 +143,8 @@ namespace BooksSpecflow.StepDefinitions
             _scenarioContext.Add("createBookResponse", createBookResponse);
         }
 
-        [Then(@"validate book ""([^""]*)"" is created")]
-        public void ThenValidateBookIsCreated(string book)
+        [Then(@"I validate book ""([^""]*)"" is created")]
+        public void ThenIValidateBookIsCreated(string book)
         {
             var contentUser = _scenarioContext["createBookResponse"].ToString();
             var bookName = contentUser.Contains(book);
@@ -156,13 +165,47 @@ namespace BooksSpecflow.StepDefinitions
             _scenarioContext.Add("getBookResponseId", getBookResponse.id);
         }
 
-        [Then(@"validate '([^']*)' book is received")]
-        public void ThenValidateBookIsReceived(string bookId)
+        [Given(@"I send get book request for book id '([^']*)' to check quantity before change")]
+        public void GivenISendGetBookRequestForBookIdToCheckQuantityBeforeChange(string bookId)
+        {
+            var api = new RestFunctions();
+            getBookResponse = api.GetBook(BASE_URL, bookId);
+            _scenarioContext.Add("getBookResponseIdQuantityBefore", getBookResponse.quontity);
+        }
+
+        [When(@"I send get book request for book id '([^']*)' to check quantity after change")]
+        public void WhenISendGetBookRequestForBookIdToCheckQuantityAfterChange(string bookId)
+        {
+            var api = new RestFunctions();
+            getBookResponse = api.GetBook(BASE_URL, bookId);
+            _scenarioContext.Add("getBookResponseIdQuantityAfter", getBookResponse.quontity);
+        }
+
+        [Then(@"I validate '([^']*)' book id is received")]
+        public void ThenIValidateBookIdIsReceived(string bookId)
         {
             var contentUser = _scenarioContext["getBookResponseId"].ToString();
             var bookIdFromResponse = contentUser;
             Assert.AreEqual(bookIdFromResponse, bookId, "Book id is not the same!");
         }
+
+        [When(@"I send take book request")]
+        public void WhenISendTakeBookRequest()
+        {
+            var api = new RestFunctions();
+            takeABookResponse = api.TakeBook(BASE_URL, takeBookReq);
+        }
+
+        [Then(@"I validate '([^']*)' book id quantity has decreased")]
+        public void ThenIValidateBookIdQuantityHasDecreased(string bookId)
+        {
+            var quantityOfBookBefore = _scenarioContext["getBookResponseIdQuantityBefore"].ToString();
+            var quantityOfBookAfter = _scenarioContext["getBookResponseIdQuantityAfter"].ToString();
+            int quantityBefore = int.Parse(quantityOfBookBefore);
+            int quantityAfter = int.Parse(quantityOfBookAfter);
+            Assert.That(quantityBefore == quantityAfter - 1, "Quantity has not deceased with one!");
+        }
+
 
 
     }
