@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BooksSpecflow.URestModels.Requests
 {
-    internal class CreateBookRequest
+    public class CreateBookRequest
     {      
         public string name { get; set; }
         public string author { get; set; }

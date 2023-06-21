@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace BooksSpecflow.URestModels.Responses
 {
-    internal class CreateBookResponse
+    public class CreateBookResponse
     {
+        public CreateBookDetailsResponse[] Property1 { get; set; }
     }
 }
