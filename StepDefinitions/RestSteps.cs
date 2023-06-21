@@ -55,8 +55,6 @@ namespace BooksSpecflow.StepDefinitions
             _scenarioContext.Add("getUserResponseName", getUserResponse.id);
         }
 
-
-
         [Then(@"validate '([^']*)' user is received")]
         public void ThenValidateUserIsReceived(string userId)
         {
