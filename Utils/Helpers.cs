@@ -42,14 +42,6 @@ namespace BooksSpecflow.Utils
             {
                 Method = Method.Get
             };
-            //request.AddHeader("Accept", "application/json");
-            request.AddHeaders(new Dictionary<string, string>
-            {
-                { "Accept", "application/json" },
-                { "Content-Type", "application/json" }
-
-            });
-            //request.AddFile("Test file", @"C:\Users\yadavm\Downloads\Test.txt", "multipart/form-data");
             return request;
         }
 
