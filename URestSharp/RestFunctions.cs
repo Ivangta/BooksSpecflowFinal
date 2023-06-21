@@ -20,7 +20,7 @@ namespace BooksSpecflow.URestSharp
             helper = new Helpers();
         }
 
-        public CreateUserRes GetUserr(string baseUrl, string userId)
+        public GetUserResponse GetUser(string baseUrl, string userId)
         {
             var client = new RestClient(baseUrl);
             var request = new RestRequest($"api/users/{userId}", Method.Get);
@@ -30,23 +30,29 @@ namespace BooksSpecflow.URestSharp
             RestResponse response = client.Execute(request);
             var content = response.Content;
 
-            CreateUserRes userResponse = JsonConvert.DeserializeObject<CreateUserRes>(content);
+            GetUserResponse userResponse = JsonConvert.DeserializeObject<GetUserResponse>(content);
             return userResponse;
         }
 
-        public async Task<RestResponse> GetUser(string baseUrl, string userId)
+        public CreateUserResponse[] CreateUser(string baseUrl, CreateUserRequest payload)
         {
-            var client = helper.SetUrl(baseUrl, $"api/users/{userId}");
-            var request = helper.CreateGetRequest();
+            var client = new RestClient(baseUrl);
+            var request = new RestRequest($"api/users", Method.Post);
+            request.AddHeader("Accept", "application/json");
+            request.AddBody(payload);
             request.RequestFormat = DataFormat.Json;
-            var response = await helper.GetResponseAsync(client, request);
-            return response;
+
+            RestResponse response = client.Execute(request);
+            var content = response.Content;
+
+            CreateUserResponse[] userResponse = JsonConvert.DeserializeObject<CreateUserResponse[]>(content);
+            return userResponse;
         }
         public async Task<RestResponse> CreateNewUser(string baseUrl, dynamic payload)
         {
             var client = helper.SetUrl(baseUrl, "api/users");
             //var jsonString = HandleContent.SerializeJsonString(payload);
-            var request = helper.CreatePostRequest<CreateUserReq>(payload);
+            var request = helper.CreatePostRequest<CreateUserRequest>(payload);
             var response = await helper.GetResponseAsync(client, request);
             return response;
         }

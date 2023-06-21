@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BooksSpecflow.URestModels.Responses
 {
-    public class CreateUserRes
+    public class GetUserResponse
     {
         public int id { get; set; }
         public string name { get; set; }

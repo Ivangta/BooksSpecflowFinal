@@ -10,11 +10,12 @@ namespace BooksSpecflow.StepDefinitions
     public class RestSteps
     {
         private const string BASE_URL = "http://qa-task.immedis.com/";
-        private readonly CreateUserReq createUserReq;
+        private readonly CreateUserRequest createUserReq;
         private RestResponse response;
-        private CreateUserRes responses;
+        private GetUserResponse responses;
+        private CreateUserResponse[] createUserResponse;
 
-        public RestSteps(CreateUserReq createUserReq)
+        public RestSteps(CreateUserRequest createUserReq)
         {
             this.createUserReq = createUserReq;
         }
@@ -26,16 +27,16 @@ namespace BooksSpecflow.StepDefinitions
         }
 
         [When(@"I send create user request")]
-        public async void WhenISendCreateUserRequest()
+        public void WhenISendCreateUserRequest()
         {
             var api = new RestFunctions();
-            response = await api.CreateNewUser(BASE_URL, createUserReq);
+            createUserResponse = api.CreateUser(BASE_URL, createUserReq);
         }
 
         [Then(@"validate user is created")]
         public void ThenValidateUserIsCreated()
         {
-            var content = HandleContent.GetContent<CreateUserRes>(response);
+            var content = HandleContent.GetContent<GetUserResponse>(response);
             Assert.AreEqual(createUserReq.Name, content.name);
         }
 
@@ -43,14 +44,14 @@ namespace BooksSpecflow.StepDefinitions
         public void GivenISendGetUserRequestForUser(string userId)
         {
             var api = new RestFunctions();
-            responses = api.GetUserr(BASE_URL, userId);
+            responses = api.GetUser(BASE_URL, userId);
         }
 
 
         [Then(@"validate user is recieved")]
         public void ThenValidateUserIsRecieved()
         {
-            var content = HandleContent.GetContent<CreateUserRes>(response);
+            var content = HandleContent.GetContent<GetUserResponse>(response);
             Assert.AreEqual(createUserReq.Name, content.name);
         }
 
