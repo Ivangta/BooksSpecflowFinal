@@ -13,36 +13,35 @@ namespace BooksSpecflow.StepDefinitions
     public class RestSteps
     {
         private const string BASE_URL = "http://qa-task.immedis.com/";
-        private readonly CreateUserRequest createUserReq;
-        private readonly CreateBookRequest createBookReq;
-        private readonly CreateABookRequest takeBookReq;
-        private GetUserResponse getUserResponse;
-        private GetBookResponse getBookResponse;
-        private CreateUserResponse[] createUserResponse;
-        private CreateBookResponse[] createBookResponse;
-        private CreateABookResponse[] takeABookResponse;
+        private readonly CreateUserRequest _createUserReq;
+        private readonly CreateBookRequest _createBookReq;
+        private readonly CreateABookRequest _takeBookReq;
+        private GetUserResponse _getUserResponse;
+        private GetBookResponse _getBookResponse;
+        private CreateUserResponse[] _createUserResponse;
+        private CreateBookResponse[] _createBookResponse;
         private readonly ScenarioContext _scenarioContext;
         private string _userId;
         private string _bookId;
 
         public RestSteps(CreateUserRequest createUserReq, CreateBookRequest createBookReq, CreateABookRequest creatABookReq, ScenarioContext scenarioContext)
         {
-            this.createUserReq = createUserReq;
-            this.createBookReq = createBookReq;
-            this.takeBookReq = creatABookReq;
+            this._createUserReq = createUserReq;
+            this._createBookReq = createBookReq;
+            this._takeBookReq = creatABookReq;
             _scenarioContext = scenarioContext;
         }
 
         [Given(@"I input user name ""([^""]*)""")]
         public void GivenIInputUserName(string name)
         {
-            createUserReq.Name = name;
+            _createUserReq.Name = name;
         }
 
         [Given(@"I update user name to ""([^""]*)""")]
         public void GivenIUpdateUserNameTo(string name)
         {
-            createUserReq.Name = name;
+            _createUserReq.Name = name;
         }
 
         [Given(@"I input user id '([^']*)'")]
@@ -55,16 +54,16 @@ namespace BooksSpecflow.StepDefinitions
         public void WhenISendCreateUserRequest()
         {
             var api = new RestFunctions();
-            createUserResponse = api.CreateUser(BASE_URL, createUserReq);
-            _scenarioContext.Add("createUserResponse", createUserResponse);
+            _createUserResponse = api.CreateUser(BASE_URL, _createUserReq);
+            _scenarioContext.Add("createUserResponse", _createUserResponse);
         }
 
         [Given(@"I update user '([^']*)'")]
         public void GivenIUpdateUser(string userId)
         {
             var api = new RestFunctions();
-            getUserResponse = api.UpdateUser(BASE_URL, userId, createUserReq);
-            _scenarioContext.Add("updateUserResponseName", getUserResponse.name);
+            _getUserResponse = api.UpdateUser(BASE_URL, userId, _createUserReq);
+            _scenarioContext.Add("updateUserResponseName", _getUserResponse.name);
         }
 
         [Given(@"I update user '([^']*)' with new name ""([^""]*)""")]
@@ -85,16 +84,16 @@ namespace BooksSpecflow.StepDefinitions
         public void GivenISendGetUserRequest()
         {
             var api = new RestFunctions();
-            getUserResponse = api.GetUser(BASE_URL, _userId);
-            _scenarioContext.Add("getUserResponseId", getUserResponse.id);
+            _getUserResponse = api.GetUser(BASE_URL, _userId);
+            _scenarioContext.Add("getUserResponseId", _getUserResponse.id);
         }
 
         [When(@"I send get user request for user '([^']*)'")]
         public void WhenISendGetUserRequestForUser(string userId)
         {
             var api = new RestFunctions();
-            getUserResponse = api.GetUser(BASE_URL, userId);
-            _scenarioContext.Add("getUserResponseName", getUserResponse.name);
+            _getUserResponse = api.GetUser(BASE_URL, userId);
+            _scenarioContext.Add("getUserResponseName", _getUserResponse.name);
         }
 
         [Then(@"I validate '([^']*)' user is received")]
@@ -116,31 +115,31 @@ namespace BooksSpecflow.StepDefinitions
         [Given(@"I input book name ""([^""]*)""")]
         public void GivenIInputBookName(string bookName)
         {
-            createBookReq.name = bookName;
+            _createBookReq.name = bookName;
         }
 
         [Given(@"I input book to take (.*), (.*)")]
         public void GivenIInputBookToTakeUserId(int userId, int bookId)
         {
-            takeBookReq.userid = userId;
-            takeBookReq.bookid = bookId;
+            _takeBookReq.userid = userId;
+            _takeBookReq.bookid = bookId;
         }
 
         [Given(@"I input book (.*), (.*), (.*), (.*)")]
         public void GivenIInputBookOceanJohnS_Action(string name, string author, string genre, int quantity)
         {
-            createBookReq.name = name;
-            createBookReq.author = author;
-            createBookReq.genre = genre;
-            createBookReq.quontity = quantity;
+            _createBookReq.name = name;
+            _createBookReq.author = author;
+            _createBookReq.genre = genre;
+            _createBookReq.quontity = quantity;
         }
 
         [When(@"I send create book request")]
         public void WhenISendCreateBookRequest()
         {
             var api = new RestFunctions();
-            createBookResponse = api.CreateBook(BASE_URL, createBookReq);
-            _scenarioContext.Add("createBookResponse", createBookResponse);
+            _createBookResponse = api.CreateBook(BASE_URL, _createBookReq);
+            _scenarioContext.Add("createBookResponse", _createBookResponse);
         }
 
         [Then(@"I validate book ""([^""]*)"" is created")]
@@ -161,24 +160,24 @@ namespace BooksSpecflow.StepDefinitions
         public void WhenISendGetBookRequest()
         {
             var api = new RestFunctions();
-            getBookResponse = api.GetBook(BASE_URL, _bookId);
-            _scenarioContext.Add("getBookResponseId", getBookResponse.id);
+            _getBookResponse = api.GetBook(BASE_URL, _bookId);
+            _scenarioContext.Add("getBookResponseId", _getBookResponse.id);
         }
 
         [Given(@"I send get book request for book id '([^']*)' to check quantity before change")]
         public void GivenISendGetBookRequestForBookIdToCheckQuantityBeforeChange(string bookId)
         {
             var api = new RestFunctions();
-            getBookResponse = api.GetBook(BASE_URL, bookId);
-            _scenarioContext.Add("getBookResponseIdQuantityBefore", getBookResponse.quontity);
+            _getBookResponse = api.GetBook(BASE_URL, bookId);
+            _scenarioContext.Add("getBookResponseIdQuantityBefore", _getBookResponse.quontity);
         }
 
         [When(@"I send get book request for book id '([^']*)' to check quantity after change")]
         public void WhenISendGetBookRequestForBookIdToCheckQuantityAfterChange(string bookId)
         {
             var api = new RestFunctions();
-            getBookResponse = api.GetBook(BASE_URL, bookId);
-            _scenarioContext.Add("getBookResponseIdQuantityAfter", getBookResponse.quontity);
+            _getBookResponse = api.GetBook(BASE_URL, bookId);
+            _scenarioContext.Add("getBookResponseIdQuantityAfter", _getBookResponse.quontity);
         }
 
         [Then(@"I validate '([^']*)' book id is received")]
@@ -193,7 +192,7 @@ namespace BooksSpecflow.StepDefinitions
         public void WhenISendTakeBookRequest()
         {
             var api = new RestFunctions();
-            takeABookResponse = api.TakeBook(BASE_URL, takeBookReq);
+            api.TakeBook(BASE_URL, _takeBookReq);
         }
 
         [Then(@"I validate '([^']*)' book id quantity has decreased")]
