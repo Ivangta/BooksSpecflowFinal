@@ -205,8 +205,5 @@ namespace BooksSpecflow.StepDefinitions
             int quantityAfter = int.Parse(quantityOfBookAfter);
             Assert.That(quantityBefore == quantityAfter - 1, "Quantity has not deceased with one!");
         }
-
-
-
     }
 }
