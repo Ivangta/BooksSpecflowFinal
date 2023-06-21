@@ -78,5 +78,19 @@ namespace BooksSpecflow.URestSharp
             CreateBookResponse[] bookResponse = JsonConvert.DeserializeObject<CreateBookResponse[]>(content);
             return bookResponse;
         }
+
+        public GetBookResponse GetBook(string baseUrl, string bookId)
+        {
+            var client = new RestClient(baseUrl);
+            var request = new RestRequest($"api/books/{bookId}", Method.Get);
+            request.AddHeader("Accept", "application/json");
+            request.RequestFormat = DataFormat.Json;
+
+            RestResponse response = client.Execute(request);
+            var content = response.Content;
+
+            GetBookResponse bookResponse = JsonConvert.DeserializeObject<GetBookResponse>(content);
+            return bookResponse;
+        }
     }
 }

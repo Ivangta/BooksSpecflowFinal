@@ -20,6 +20,11 @@ Examples:
 	| name  | author  | genre  | quontity |
 	| Ocean | John S. | Action | 3        |
 
+Scenario: Get a book
+	Given I input book id '1413'
+	When I send get book request
+	Then validate '1413' book is received
+
 #	There is a problem with PUT and DELETE methods, they are not allowed
 #Scenario: Update a user
 #	Given I update user name to "Ganch"

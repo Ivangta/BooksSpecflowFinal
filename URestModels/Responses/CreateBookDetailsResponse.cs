@@ -13,6 +13,6 @@ namespace BooksSpecflow.URestModels.Responses
         public string author { get; set; }
         public string genre { get; set; }
         public int quontity { get; set; }
-        public object[] booksTaken { get; set; }
+        public int[] booksTaken { get; set; }
     }
 }

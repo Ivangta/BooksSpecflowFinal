@@ -16,10 +16,12 @@ namespace BooksSpecflow.StepDefinitions
         private readonly CreateUserRequest createUserReq;
         private readonly CreateBookRequest createBookReq;
         private GetUserResponse getUserResponse;
+        private GetBookResponse getBookResponse;
         private CreateUserResponse[] createUserResponse;
         private CreateBookResponse[] createBookResponse;
         private readonly ScenarioContext _scenarioContext;
-        private string _id;
+        private string _userId;
+        private string _bookId;
 
         public RestSteps(CreateUserRequest createUserReq, CreateBookRequest createBookReq, ScenarioContext scenarioContext)
         {
@@ -43,7 +45,7 @@ namespace BooksSpecflow.StepDefinitions
         [Given(@"I input user id '([^']*)'")]
         public void GivenIInputUserId(string id)
         {
-            _id = id;
+            _userId = id;
         }
 
         [When(@"I send create user request")]
@@ -80,7 +82,7 @@ namespace BooksSpecflow.StepDefinitions
         public void GivenISendGetUserRequest()
         {
             var api = new RestFunctions();
-            getUserResponse = api.GetUser(BASE_URL, _id);
+            getUserResponse = api.GetUser(BASE_URL, _userId);
             _scenarioContext.Add("getUserResponseId", getUserResponse.id);
         }
 
@@ -140,6 +142,27 @@ namespace BooksSpecflow.StepDefinitions
             Assert.IsTrue(bookName, "Book is not created!");
         }
 
+        [Given(@"I input book id '([^']*)'")]
+        public void GivenIInputBookId(string id)
+        {
+            _bookId = id;
+        }
+
+        [When(@"I send get book request")]
+        public void WhenISendGetBookRequest()
+        {
+            var api = new RestFunctions();
+            getBookResponse = api.GetBook(BASE_URL, _bookId);
+            _scenarioContext.Add("getBookResponseId", getBookResponse.id);
+        }
+
+        [Then(@"validate '([^']*)' book is received")]
+        public void ThenValidateBookIsReceived(string bookId)
+        {
+            var contentUser = _scenarioContext["getBookResponseId"].ToString();
+            var bookIdFromResponse = contentUser;
+            Assert.AreEqual(bookIdFromResponse, bookId, "Book id is not the same!");
+        }
 
 
     }
