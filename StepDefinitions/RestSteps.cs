@@ -12,22 +12,24 @@ namespace BooksSpecflow.StepDefinitions
     [Binding]
     public class RestSteps
     {
-        private const string BASE_URL = "https://qa-task.immedis.com/";
+        private const string BASE_URL = "http://qa-task.immedis.com/";
         private readonly CreateUserRequest createUserReq;
+        private readonly CreateBookRequest createBookReq;
         private GetUserResponse getUserResponse;
-        private DeleteUserResponse deleteUserResponse;
         private CreateUserResponse[] createUserResponse;
+        private CreateBookResponse[] createBookResponse;
         private readonly ScenarioContext _scenarioContext;
         private string _id;
 
-        public RestSteps(CreateUserRequest createUserReq, ScenarioContext scenarioContext)
+        public RestSteps(CreateUserRequest createUserReq, CreateBookRequest createBookReq, ScenarioContext scenarioContext)
         {
             this.createUserReq = createUserReq;
+            this.createBookReq = createBookReq;
             _scenarioContext = scenarioContext;
         }
 
-        [Given(@"I input name ""([^""]*)""")]
-        public void GivenIInputName(string name)
+        [Given(@"I input user name ""([^""]*)""")]
+        public void GivenIInputUserName(string name)
         {
             createUserReq.Name = name;
         }
@@ -38,8 +40,8 @@ namespace BooksSpecflow.StepDefinitions
             createUserReq.Name = name;
         }
 
-        [Given(@"I input id '([^']*)'")]
-        public void GivenIInputId(string id)
+        [Given(@"I input user id '([^']*)'")]
+        public void GivenIInputUserId(string id)
         {
             _id = id;
         }
@@ -60,21 +62,11 @@ namespace BooksSpecflow.StepDefinitions
             _scenarioContext.Add("updateUserResponseName", getUserResponse.name);
         }
 
-        [Given(@"I return book for user '([^']*)'")]
-        public void GivenIReturnBookForUser(string userId)
-        {
-            var api = new RestFunctions();
-            api.ReturnBook(BASE_URL, userId);
-            _scenarioContext.Add("updateUserResponseName", getUserResponse.name);
-        }
-
-
         [Given(@"I update user '([^']*)' with new name ""([^""]*)""")]
         public void GivenIUpdateUserWithNewName(string p0, string ganch)
         {
             throw new PendingStepException();
         }
-
 
         [Then(@"validate user ""([^""]*)"" is created")]
         public void ThenValidateUserIsCreated(string user)
@@ -116,6 +108,37 @@ namespace BooksSpecflow.StepDefinitions
             Assert.AreEqual(updateUserName, getUserName, "User id is not the same!");
         }
 
+        [Given(@"I input book name ""([^""]*)""")]
+        public void GivenIInputBookName(string bookName)
+        {
+            createBookReq.name = bookName;
+        }
+
+        [Given(@"I input book (.*), (.*), (.*), (.*)")]
+        public void GivenIInputBookOceanJohnS_Action(string name, string author, string genre, int quantity)
+        {
+            createBookReq.name = name;
+            createBookReq.author = author;
+            createBookReq.genre = genre;
+            createBookReq.quontity = quantity;
+        }
+
+
+        [When(@"I send create book request")]
+        public void WhenISendCreateBookRequest()
+        {
+            var api = new RestFunctions();
+            createBookResponse = api.CreateBook(BASE_URL, createBookReq);
+            _scenarioContext.Add("createBookResponse", createBookResponse);
+        }
+
+        [Then(@"validate book ""([^""]*)"" is created")]
+        public void ThenValidateBookIsCreated(string book)
+        {
+            var contentUser = _scenarioContext["createBookResponse"].ToString();
+            var bookName = contentUser.Contains(book);
+            Assert.IsTrue(bookName, "Book is not created!");
+        }
 
 
 

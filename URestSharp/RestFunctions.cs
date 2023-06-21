@@ -34,17 +34,6 @@ namespace BooksSpecflow.URestSharp
             return userResponse;
         }
 
-        public void ReturnBook(string baseUrl, string userId)
-        {
-            var client = new RestClient("http://qa-task.immedis.com/");
-            var request = new RestRequest("api/getbook/1413", Method.Delete);
-            //request.AddHeader("Accept", "application/json");
-            //request.RequestFormat = DataFormat.Json;
-
-            RestResponse response = client.Execute(request);
-            var content = response.Content;
-        }
-
         public GetUserResponse UpdateUser(string baseUrl, string userId, CreateUserRequest payload)
         {
             var client = new RestClient(baseUrl);
@@ -75,13 +64,19 @@ namespace BooksSpecflow.URestSharp
             return userResponse;
         }
 
-        public async Task<RestResponse> CreateNewUser(string baseUrl, dynamic payload)
+        public CreateBookResponse[] CreateBook(string baseUrl, CreateBookRequest payload)
         {
-            var client = helper.SetUrl(baseUrl, "api/users");
-            //var jsonString = HandleContent.SerializeJsonString(payload);
-            var request = helper.CreatePostRequest<CreateUserRequest>(payload);
-            var response = await helper.GetResponseAsync(client, request);
-            return response;
+            var client = new RestClient(baseUrl);
+            var request = new RestRequest($"api/books", Method.Post);
+            request.AddHeader("Accept", "application/json");
+            request.AddBody(payload);
+            request.RequestFormat = DataFormat.Json;
+
+            RestResponse response = client.Execute(request);
+            var content = response.Content;
+
+            CreateBookResponse[] bookResponse = JsonConvert.DeserializeObject<CreateBookResponse[]>(content);
+            return bookResponse;
         }
     }
 }
