@@ -34,10 +34,25 @@ namespace BooksSpecflow.URestSharp
             return userResponse;
         }
 
+        public GetUserResponse UpdateUser(string baseUrl, string userId, CreateUserRequest payload)
+        {
+            var client = new RestClient(baseUrl);
+            var request = new RestRequest($"api/users/{userId}", Method.Put);
+            request.AddHeader("Accept", "application/json");
+            request.AddBody(payload);
+            request.RequestFormat = DataFormat.Json;
+
+            RestResponse response = client.Execute(request);
+            var content = response.Content;
+
+            GetUserResponse userResponse = JsonConvert.DeserializeObject<GetUserResponse>(content);
+            return userResponse;
+        }
+
         public CreateUserResponse[] CreateUser(string baseUrl, CreateUserRequest payload)
         {
             var client = new RestClient(baseUrl);
-            var request = new RestRequest($"api/users", Method.Post);
+            var request = new RestRequest($"api/users/34", Method.Put);
             request.AddHeader("Accept", "application/json");
             request.AddBody(payload);
             request.RequestFormat = DataFormat.Json;
