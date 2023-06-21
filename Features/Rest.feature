@@ -16,3 +16,9 @@ Scenario: Update a user
 	And I update user '691'
 	When I send get user request for user '691'
 	Then I validate user is updated successfully
+
+Scenario: Return a book
+	Given I return book for user '1413'
+	And I update user '691'
+	When I send get user request for user '691'
+	Then I validate user is updated successfully

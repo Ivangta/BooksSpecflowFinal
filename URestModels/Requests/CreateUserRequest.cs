@@ -8,6 +8,6 @@ namespace BooksSpecflow.URestModels.Requests
 {
     public class CreateUserRequest
     {
-        public string? Name { get; set; }
+        public string Name { get; set; }
     }
 }

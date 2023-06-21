@@ -60,6 +60,15 @@ namespace BooksSpecflow.StepDefinitions
             _scenarioContext.Add("updateUserResponseName", getUserResponse.name);
         }
 
+        [Given(@"I return book for user '([^']*)'")]
+        public void GivenIReturnBookForUser(string userId)
+        {
+            var api = new RestFunctions();
+            api.ReturnBook(BASE_URL, userId);
+            _scenarioContext.Add("updateUserResponseName", getUserResponse.name);
+        }
+
+
         [Given(@"I update user '([^']*)' with new name ""([^""]*)""")]
         public void GivenIUpdateUserWithNewName(string p0, string ganch)
         {
