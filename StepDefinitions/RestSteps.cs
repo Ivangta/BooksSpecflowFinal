@@ -12,7 +12,7 @@ namespace BooksSpecflow.StepDefinitions
     [Binding]
     public class RestSteps
     {
-        private const string BASE_URL = "http://qa-task.immedis.com/";
+        private const string BASE_URL = "https://qa-task.immedis.com/";
         private readonly CreateUserRequest createUserReq;
         private GetUserResponse getUserResponse;
         private DeleteUserResponse deleteUserResponse;

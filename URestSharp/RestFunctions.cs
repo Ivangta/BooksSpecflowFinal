@@ -36,10 +36,10 @@ namespace BooksSpecflow.URestSharp
 
         public void ReturnBook(string baseUrl, string userId)
         {
-            var client = new RestClient(baseUrl);
-            var request = new RestRequest($"api/getbook/{userId}", Method.Delete);
-            request.AddHeader("Accept", "application/json");
-            request.RequestFormat = DataFormat.Json;
+            var client = new RestClient("http://qa-task.immedis.com/");
+            var request = new RestRequest("api/getbook/1413", Method.Delete);
+            //request.AddHeader("Accept", "application/json");
+            //request.RequestFormat = DataFormat.Json;
 
             RestResponse response = client.Execute(request);
             var content = response.Content;
@@ -48,7 +48,7 @@ namespace BooksSpecflow.URestSharp
         public GetUserResponse UpdateUser(string baseUrl, string userId, CreateUserRequest payload)
         {
             var client = new RestClient(baseUrl);
-            var request = new RestRequest($"api/users/{userId}", Method.Put);
+            var request = new RestRequest($"api/books/{userId}", Method.Put);
             request.AddHeader("Accept", "application/json");
             request.AddBody(payload);
             request.RequestFormat = DataFormat.Json;
