@@ -1,8 +1,10 @@
-﻿using BooksSpecflow.URestModels.Requests;
+﻿using BasicSelenium.UIComponents;
+using BooksSpecflow.URestModels.Requests;
 using BooksSpecflow.URestModels.Responses;
 using BooksSpecflow.URestSharp;
 using NUnit.Framework;
 using RestSharp;
+using TechTalk.SpecFlow;
 
 namespace BooksSpecflow.StepDefinitions
 {
@@ -11,13 +13,14 @@ namespace BooksSpecflow.StepDefinitions
     {
         private const string BASE_URL = "http://qa-task.immedis.com/";
         private readonly CreateUserRequest createUserReq;
-        private RestResponse response;
-        private GetUserResponse responses;
+        private GetUserResponse getUserResponse;
         private CreateUserResponse[] createUserResponse;
+        private readonly ScenarioContext _scenarioContext;
 
-        public RestSteps(CreateUserRequest createUserReq)
+        public RestSteps(CreateUserRequest createUserReq, ScenarioContext scenarioContext)
         {
             this.createUserReq = createUserReq;
+            _scenarioContext = scenarioContext;
         }
 
         [Given(@"I input name ""([^""]*)""")]
@@ -31,29 +34,37 @@ namespace BooksSpecflow.StepDefinitions
         {
             var api = new RestFunctions();
             createUserResponse = api.CreateUser(BASE_URL, createUserReq);
+            _scenarioContext.Add("createUserResponse", createUserResponse);
         }
 
-        [Then(@"validate user is created")]
-        public void ThenValidateUserIsCreated()
+        [Then(@"validate user ""([^""]*)"" is created")]
+        public void ThenValidateUserIsCreated(string user)
         {
-            var content = HandleContent.GetContent<GetUserResponse>(response);
-            Assert.AreEqual(createUserReq.Name, content.name);
+            var contentUser = _scenarioContext["createUserResponse"].ToString();
+            var userName = contentUser.Contains(user);
+            Assert.IsTrue(userName, "User is not created!");
         }
 
-        [Given(@"I send get user request for user '([^']*)'")]
+
+
+        [When(@"I send get user request for user '([^']*)'")]
         public void GivenISendGetUserRequestForUser(string userId)
         {
             var api = new RestFunctions();
-            responses = api.GetUser(BASE_URL, userId);
+            getUserResponse = api.GetUser(BASE_URL, userId);
+            _scenarioContext.Add("getUserResponseName", getUserResponse.id);
         }
 
 
-        [Then(@"validate user is recieved")]
-        public void ThenValidateUserIsRecieved()
+
+        [Then(@"validate '([^']*)' user is received")]
+        public void ThenValidateUserIsReceived(string userId)
         {
-            var content = HandleContent.GetContent<GetUserResponse>(response);
-            Assert.AreEqual(createUserReq.Name, content.name);
+            var contentUser = _scenarioContext["getUserResponseName"].ToString();
+            var userIdFromResponse = contentUser;
+            Assert.AreEqual(userIdFromResponse, userId, "User id is not the same!");
         }
+
 
 
     }
