@@ -52,7 +52,7 @@ namespace BooksSpecflow.URestSharp
         public CreateUserResponse[] CreateUser(string baseUrl, CreateUserRequest payload)
         {
             var client = new RestClient(baseUrl);
-            var request = new RestRequest($"api/users/34", Method.Put);
+            var request = new RestRequest($"api/users", Method.Post);
             request.AddHeader("Accept", "application/json");
             request.AddBody(payload);
             request.RequestFormat = DataFormat.Json;
